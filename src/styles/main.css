@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles should come AFTER Tailwind directives */
+a {
+  @apply text-blue-700;
+}
+
+a:hover {
+  @apply underline;
+}
