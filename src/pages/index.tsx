@@ -286,7 +286,7 @@ export default function LoginPage() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx global>{`
         @keyframes blob {
           0%, 100% {
             transform: translate(0, 0) scale(1);
