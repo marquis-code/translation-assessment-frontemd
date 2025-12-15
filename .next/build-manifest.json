@@ -34,6 +34,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/summary/[id].js"
+    ],
+    "/transcription/[id]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/transcription/[id].js"
     ]
   },
   "ampFirstPages": []
