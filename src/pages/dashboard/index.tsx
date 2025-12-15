@@ -305,7 +305,7 @@ export default function DashboardPage() {
             </div>
           ) : (
             <div className="divide-y divide-gray-200">
-              {consultations.map((consultation, index) => (
+              {consultations.map((consultation) => (
                 <div
                   key={consultation.id}
                   className="p-6 hover:bg-gray-100 transition-all cursor-pointer group"
