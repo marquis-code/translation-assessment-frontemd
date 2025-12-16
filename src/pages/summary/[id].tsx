@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const API_BASE_URL = "https://translation-api-backend.onrender.com";
+const API_BASE_URL = "http://localhost:8000";
 
 type Summary = {
   identifiers: string;
