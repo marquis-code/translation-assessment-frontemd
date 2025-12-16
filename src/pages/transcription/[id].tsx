@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 // const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 const API_BASE_URL = "https://translation-api-backend.onrender.com"
-const WS_BASE_URL = "ws://translation-api-backend.onrender.com"
+const WS_BASE_URL = "wss://translation-api-backend.onrender.com"
 // const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8000";
 
 export default function TranscriptionPage() {
