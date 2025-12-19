@@ -1,10 +1,5 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/dashboard": "pages/dashboard.html",
-  "/": "pages/index.html",
-  "/summary/[id]": "pages/summary/[id].html",
-  "/transcription/[id]": "pages/transcription/[id].html",
-  "/_error": "pages/_error.js",
-  "/404": "pages/404.html"
+  "/_error": "pages/_error.js"
 }
