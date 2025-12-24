@@ -1,0 +1,128 @@
+{
+  "app": {
+    "title": "मेडीस्क्राइब एआई",
+    "subtitle": "चिकित्सा प्रतिलेखन मंच"
+  },
+  "auth": {
+    "welcomeBack": "वापसी पर स्वागत है",
+    "signIn": "साइन इन करें",
+    "signInDescription": "अपने परामर्श डैशबोर्ड तक पहुँचने के लिए साइन इन करें",
+    "emailAddress": "ईमेल पता",
+    "password": "पासवर्ड",
+    "loggingIn": "लॉग इन हो रहा है...",
+    "loginFailed": "लॉगिन विफल",
+    "demoAccess": "डेमो एक्सेस",
+    "demoCredentials": "डेमो प्रमाण-पत्र",
+    "useDemoCredentials": "डेमो प्रमाण-पत्र का उपयोग करें",
+    "secureEncrypted": "256-बिट एसएसएल एन्क्रिप्टेड",
+    "securePlatform": "सुरक्षित चिकित्सा प्रतिलेखन मंच"
+  },
+  "dashboard": {
+    "greeting": {
+      "morning": "सुप्रभात",
+      "afternoon": "शुभ दोपहर",
+      "evening": "शुभ संध्या"
+    },
+    "ready": "अपने अगले रोगी परामर्श का दस्तावेज़ीकरण करने के लिए तैयार हैं?",
+    "logout": "लॉग आउट",
+    "stats": {
+      "total": "कुल परामर्श",
+      "completed": "पूर्ण",
+      "inProgress": "प्रगति में",
+      "today": "आज"
+    },
+    "newConsultation": {
+      "title": "नया परामर्श शुरू करें",
+      "description": "वास्तविक समय प्रतिलेखन, स्वचालित वक्ता पहचान और एआई-संचालित नैदानिक सारांश के साथ रोगी इंटरैक्शन रिकॉर्ड करें",
+      "beginRecording": "रिकॉर्डिंग शुरू करें",
+      "starting": "शुरू हो रहा है..."
+    },
+    "recentConsultations": "हाल के परामर्श",
+    "noConsultations": "अभी तक कोई परामर्श नहीं",
+    "startFirst": "इसे यहाँ देखने के लिए अपना पहला परामर्श शुरू करें",
+    "viewDetails": "विवरण देखें"
+  },
+  "transcription": {
+    "liveConsultation": "लाइव परामर्श",
+    "sessionId": "सत्र आईडी",
+    "language": "भाषा",
+    "exchanges": "आदान-प्रदान",
+    "words": "शब्द",
+    "startRecording": "रिकॉर्डिंग शुरू करें",
+    "stopRecording": "रिकॉर्डिंग बंद करें",
+    "recording": "रिकॉर्डिंग",
+    "connected": "जुड़ा हुआ",
+    "connecting": "कनेक्ट हो रहा है...",
+    "connectionError": "कनेक्शन त्रुटि",
+    "disconnected": "डिस्कनेक्ट",
+    "liveTranscript": "लाइव प्रतिलेख",
+    "readyToStart": "शुरू करने के लिए तैयार",
+    "clickToBegin": "अपना परामर्श कैप्चर करना शुरू करने के लिए \"रिकॉर्डिंग शुरू करें\" पर क्लिक करें। भाषण का वास्तविक समय में प्रतिलेखन और अनुवाद किया जाएगा।",
+    "translated": "अनुवादित",
+    "realTimeTranscription": "वक्ता पहचान के साथ वास्तविक समय प्रतिलेखन",
+    "cancel": "रद्द करें",
+    "generateSummary": "सारांश उत्पन्न करें",
+    "generating": "उत्पन्न हो रहा है...",
+    "doctor": "डॉक्टर",
+    "patient": "रोगी"
+  },
+  "summary": {
+    "clinicalSummary": "नैदानिक सारांश",
+    "back": "वापस",
+    "transcript": "प्रतिलेख",
+    "export": "निर्यात",
+    "save": "सहेजें",
+    "saving": "सहेजा जा रहा है...",
+    "edit": "संपादित करें",
+    "completed": "परामर्श पूर्ण",
+    "completedOn": "पूर्ण हुआ",
+    "sections": {
+      "identifiers": "रोगी पहचानकर्ता",
+      "history": "चिकित्सा इतिहास",
+      "examination": "नैदानिक परीक्षण",
+      "diagnoses": "निदान और आकलन",
+      "treatment": "उपचार योजना",
+      "advice": "रोगी परामर्श",
+      "nextSteps": "फॉलो-अप और अगले कदम"
+    },
+    "placeholders": {
+      "identifiers": "रोगी का नाम, आयु, लिंग और स्थान दर्ज करें",
+      "history": "मुख्य शिकायतें, वर्तमान बीमारी का इतिहास, पिछला चिकित्सा इतिहास",
+      "examination": "शारीरिक परीक्षण निष्कर्ष और महत्वपूर्ण संकेत",
+      "diagnoses": "नैदानिक मूल्यांकन और निदान",
+      "treatment": "दवाएं, प्रक्रियाएं और उपचार योजना",
+      "advice": "जीवनशैली में परिवर्तन, आहार सलाह, रोगी शिक्षा",
+      "nextSteps": "फॉलो-अप अपॉइंटमेंट और जांच"
+    },
+    "markCompleted": "पूर्ण के रूप में चिह्नित करें",
+    "saveBeforeComplete": "पूर्ण के रूप में चिह्नित करने से पहले सारांश सहेजें",
+    "consultationInfo": "परामर्श जानकारी",
+    "status": "स्थिति",
+    "created": "बनाया गया",
+    "quickActions": "त्वरित क्रियाएं",
+    "printSummary": "सारांश प्रिंट करें",
+    "backToDashboard": "डैशबोर्ड पर वापस",
+    "tips": "सुझाव",
+    "tip1": "स्पष्ट, संक्षिप्त चिकित्सा शब्दावली का उपयोग करें",
+    "tip2": "परिवर्तन खोने से बचने के लिए बार-बार सहेजें",
+    "tip3": "पूर्ण के रूप में चिह्नित करने से पहले समीक्षा करें",
+    "consultationTranscript": "परामर्श प्रतिलेख",
+    "noTranscript": "कोई प्रतिलेख उपलब्ध नहीं",
+    "savedSuccessfully": "सारांश सफलतापूर्वक सहेजा गया!",
+    "completedSuccessfully": "परामर्श पूर्ण!"
+  },
+  "languages": {
+    "en": "English",
+    "hi": "हिंदी (Hindi)",
+    "ta": "தமிழ் (Tamil)",
+    "id": "Bahasa Indonesia",
+    "selectLanguage": "भाषा चुनें"
+  },
+  "common": {
+    "error": "त्रुटि",
+    "success": "सफलता",
+    "loading": "लोड हो रहा है...",
+    "loadingWorkspace": "आपका कार्यक्षेत्र लोड हो रहा है...",
+    "id": "आईडी"
+  }
+}

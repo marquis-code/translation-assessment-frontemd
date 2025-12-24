@@ -1,0 +1,128 @@
+{
+  "app": {
+    "title": "MediScribe AI",
+    "subtitle": "Medical Transcription Platform"
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "signIn": "Sign In",
+    "signInDescription": "Sign in to access your consultation dashboard",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "loggingIn": "Logging in...",
+    "loginFailed": "Login Failed",
+    "demoAccess": "Demo Access",
+    "demoCredentials": "Demo Credentials",
+    "useDemoCredentials": "Use Demo Credentials",
+    "secureEncrypted": "256-bit SSL Encrypted",
+    "securePlatform": "Secure medical transcription platform"
+  },
+  "dashboard": {
+    "greeting": {
+      "morning": "Good Morning",
+      "afternoon": "Good Afternoon",
+      "evening": "Good Evening"
+    },
+    "ready": "Ready to document your next patient consultation?",
+    "logout": "Logout",
+    "stats": {
+      "total": "Total Consultations",
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "today": "Today"
+    },
+    "newConsultation": {
+      "title": "Start New Consultation",
+      "description": "Record patient interactions with real-time transcription, automatic speaker detection, and AI-powered clinical summaries",
+      "beginRecording": "Begin Recording",
+      "starting": "Starting..."
+    },
+    "recentConsultations": "Recent Consultations",
+    "noConsultations": "No consultations yet",
+    "startFirst": "Start your first consultation to see it appear here",
+    "viewDetails": "View Details"
+  },
+  "transcription": {
+    "liveConsultation": "Live Consultation",
+    "sessionId": "Session ID",
+    "language": "LANGUAGE",
+    "exchanges": "EXCHANGES",
+    "words": "WORDS",
+    "startRecording": "Start Recording",
+    "stopRecording": "Stop Recording",
+    "recording": "RECORDING",
+    "connected": "Connected",
+    "connecting": "Connecting...",
+    "connectionError": "Connection Error",
+    "disconnected": "Disconnected",
+    "liveTranscript": "Live Transcript",
+    "readyToStart": "Ready to Start",
+    "clickToBegin": "Click \"Start Recording\" to begin capturing your consultation. Speech will be transcribed and translated in real-time.",
+    "translated": "Translated",
+    "realTimeTranscription": "Real-time transcription with speaker detection",
+    "cancel": "Cancel",
+    "generateSummary": "Generate Summary",
+    "generating": "Generating...",
+    "doctor": "Doctor",
+    "patient": "Patient"
+  },
+  "summary": {
+    "clinicalSummary": "Clinical Summary",
+    "back": "Back",
+    "transcript": "Transcript",
+    "export": "Export",
+    "save": "Save",
+    "saving": "Saving...",
+    "edit": "Edit",
+    "completed": "Consultation Completed",
+    "completedOn": "Completed on",
+    "sections": {
+      "identifiers": "Patient Identifiers",
+      "history": "Medical History",
+      "examination": "Clinical Examination",
+      "diagnoses": "Diagnosis & Assessment",
+      "treatment": "Treatment Plan",
+      "advice": "Patient Counseling",
+      "nextSteps": "Follow-up & Next Steps"
+    },
+    "placeholders": {
+      "identifiers": "Enter patient name, age, sex, and location",
+      "history": "Chief complaints, history of present illness, past medical history",
+      "examination": "Physical examination findings and vital signs",
+      "diagnoses": "Clinical assessment and diagnoses",
+      "treatment": "Medications, procedures, and treatment plan",
+      "advice": "Lifestyle changes, dietary advice, patient education",
+      "nextSteps": "Follow-up appointments and investigations"
+    },
+    "markCompleted": "Mark as Completed",
+    "saveBeforeComplete": "Save the summary before marking as completed",
+    "consultationInfo": "Consultation Info",
+    "status": "Status",
+    "created": "Created",
+    "quickActions": "Quick Actions",
+    "printSummary": "Print Summary",
+    "backToDashboard": "Back to Dashboard",
+    "tips": "Tips",
+    "tip1": "Use clear, concise medical terminology",
+    "tip2": "Save frequently to avoid losing changes",
+    "tip3": "Review before marking as completed",
+    "consultationTranscript": "Consultation Transcript",
+    "noTranscript": "No transcript available",
+    "savedSuccessfully": "Summary saved successfully!",
+    "completedSuccessfully": "Consultation completed!"
+  },
+  "languages": {
+    "en": "English",
+    "hi": "हिंदी (Hindi)",
+    "ta": "தமிழ் (Tamil)",
+    "id": "Bahasa Indonesia",
+    "selectLanguage": "Select Language"
+  },
+  "common": {
+    "error": "Error",
+    "success": "Success",
+    "loading": "Loading...",
+    "loadingWorkspace": "Loading your workspace...",
+    "id": "ID"
+  }
+}

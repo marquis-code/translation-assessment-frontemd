@@ -1,31 +1,34 @@
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Cookies from "js-cookie";
+import LanguageSwitcher from "../../components/LanguageSwitcher";
 
 const API_BASE_URL = "https://translation-api-backend.onrender.com"
 // const API_BASE_URL = "http://localhost:8000";
 
 export default function DashboardPage() {
-  const router = useRouter() as any
-  const [user, setUser] = useState(null) as any
-  const [consultations, setConsultations] = useState([]) as any
-  const [loading, setLoading] = useState(true) as any
+  const router = useRouter();
+  const { t } = useTranslation('common');
+  const [user, setUser] = useState(null) as any;
+  const [consultations, setConsultations] = useState([]) as any;
+  const [loading, setLoading] = useState(true) as any;
   const [stats, setStats] = useState({
     total: 0,
     completed: 0,
     inProgress: 0,
     today: 0
-  }) as any
+  }) as any;
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [startingConsultation, setStartingConsultation] = useState(false);
 
   const languages = [
-    { code: "en", name: "English", flag: "🇬🇧" },
-    { code: "hi", name: "हिंदी (Hindi)", flag: "🇮🇳" },
-    { code: "ta", name: "தமிழ் (Tamil)", flag: "🇮🇳" },
-    { code: "id", name: "Bahasa Indonesia", flag: "🇮🇩" },
+    { code: "en", name: t('languages.en'), flag: "🇬🇧" },
+    { code: "hi", name: t('languages.hi'), flag: "🇮🇳" },
+    { code: "ta", name: t('languages.ta'), flag: "🇮🇳" },
+    { code: "id", name: t('languages.id'), flag: "🇮🇩" },
   ];
 
   useEffect(() => {
@@ -35,7 +38,6 @@ export default function DashboardPage() {
       return;
     }
 
-    // Get user info from cookie
     const userInfo = Cookies.get("user");
     if (userInfo) {
       try {
@@ -66,7 +68,6 @@ export default function DashboardPage() {
       const data = await response.json();
       setConsultations(data);
 
-      // Calculate stats
       const total = data.length;
       const completed = data.filter((c: any) => c.status === "completed").length;
       const inProgress = data.filter((c: any) => c.status === "in_progress").length;
@@ -89,7 +90,6 @@ export default function DashboardPage() {
     try {
       const token = Cookies.get("token");
       
-      // Send language in the request body
       const response = await fetch(`${API_BASE_URL}/api/consultations/start`, {
         method: "POST",
         headers: {
@@ -108,12 +108,10 @@ export default function DashboardPage() {
       const data = await response.json();
       const consultationId = data.consultation_id;
 
-      // Store selected language in session storage for the transcription page
       sessionStorage.setItem("selectedLanguage", selectedLanguage);
 
       console.log(`✅ Started consultation ${consultationId} with language ${selectedLanguage}`);
 
-      // Navigate to transcription page
       router.push(`/transcription/${consultationId}`);
     } catch (err) {
       console.error("Error starting consultation:", err);
@@ -138,14 +136,14 @@ export default function DashboardPage() {
     if (hours < 1) return "Just now";
     if (hours < 24) return `${hours}h ago`;
     if (hours < 48) return "Yesterday";
-    return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    return date.toLocaleDateString(router.locale, { month: "short", day: "numeric", year: "numeric" });
   };
 
   const getTimeOfDay = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return "Good Morning";
-    if (hour < 17) return "Good Afternoon";
-    return "Good Evening";
+    if (hour < 12) return t('dashboard.greeting.morning');
+    if (hour < 17) return t('dashboard.greeting.afternoon');
+    return t('dashboard.greeting.evening');
   };
 
   const handleViewConsultation = (consultationId: any) => {
@@ -157,7 +155,7 @@ export default function DashboardPage() {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent mx-auto"></div>
-          <p className="mt-4 text-gray-700 font-medium">Loading your workspace...</p>
+          <p className="mt-4 text-gray-700 font-medium">{t('common.loadingWorkspace')}</p>
         </div>
       </div>
     );
@@ -176,19 +174,22 @@ export default function DashboardPage() {
                 </svg>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">MediScribe AI</h1>
-                <p className="text-sm text-gray-600">Medical Transcription Platform</p>
+                <h1 className="text-xl font-bold text-gray-900">{t('app.title')}</h1>
+                <p className="text-sm text-gray-600">{t('app.subtitle')}</p>
               </div>
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center space-x-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-all"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              <span>Logout</span>
-            </button>
+            <div className="flex items-center gap-3">
+              <LanguageSwitcher />
+              <button
+                onClick={handleLogout}
+                className="flex items-center space-x-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-all"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                <span>{t('dashboard.logout')}</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -199,7 +200,7 @@ export default function DashboardPage() {
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             {getTimeOfDay()}, {user.full_name?.split(" ")[0] || "Doctor"} 👋
           </h2>
-          <p className="text-gray-700">Ready to document your next patient consultation?</p>
+          <p className="text-gray-700">{t('dashboard.ready')}</p>
         </div>
 
         {/* Stats Cards */}
@@ -213,7 +214,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <h3 className="text-2xl font-bold text-gray-900">{stats.total}</h3>
-            <p className="text-sm text-gray-700">Total Consultations</p>
+            <p className="text-sm text-gray-700">{t('dashboard.stats.total')}</p>
           </div>
 
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all">
@@ -225,7 +226,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <h3 className="text-2xl font-bold text-gray-900">{stats.completed}</h3>
-            <p className="text-sm text-gray-700">Completed</p>
+            <p className="text-sm text-gray-700">{t('dashboard.stats.completed')}</p>
           </div>
 
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all">
@@ -237,7 +238,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <h3 className="text-2xl font-bold text-gray-900">{stats.inProgress}</h3>
-            <p className="text-sm text-gray-700">In Progress</p>
+            <p className="text-sm text-gray-700">{t('dashboard.stats.inProgress')}</p>
           </div>
 
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all">
@@ -249,7 +250,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <h3 className="text-2xl font-bold text-gray-900">{stats.today}</h3>
-            <p className="text-sm text-gray-700">Today</p>
+            <p className="text-sm text-gray-700">{t('dashboard.stats.today')}</p>
           </div>
         </div>
 
@@ -260,9 +261,9 @@ export default function DashboardPage() {
           
           <div className="relative z-10 flex items-center justify-between">
             <div className="flex-1">
-              <h3 className="text-2xl font-bold text-white mb-2">Start New Consultation</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">{t('dashboard.newConsultation.title')}</h3>
               <p className="text-blue-100 mb-6 max-w-xl">
-                Record patient interactions with real-time transcription, automatic speaker detection, and AI-powered clinical summaries
+                {t('dashboard.newConsultation.description')}
               </p>
               <div className="flex items-center gap-4">
                 <button
@@ -288,14 +289,14 @@ export default function DashboardPage() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      <span>Starting...</span>
+                      <span>{t('dashboard.newConsultation.starting')}</span>
                     </>
                   ) : (
                     <>
                       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                       </svg>
-                      <span>Begin Recording</span>
+                      <span>{t('dashboard.newConsultation.beginRecording')}</span>
                     </>
                   )}
                 </button>
@@ -311,7 +312,7 @@ export default function DashboardPage() {
               <svg className="w-7 h-7 mr-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Recent Consultations
+              {t('dashboard.recentConsultations')}
             </h2>
           </div>
 
@@ -322,8 +323,8 @@ export default function DashboardPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">No consultations yet</h3>
-              <p className="text-gray-600 mb-6">Start your first consultation to see it appear here</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t('dashboard.noConsultations')}</h3>
+              <p className="text-gray-600 mb-6">{t('dashboard.startFirst')}</p>
             </div>
           ) : (
             <div className="divide-y divide-gray-200">
@@ -361,7 +362,7 @@ export default function DashboardPage() {
                               ? "bg-blue-200 text-blue-900"
                               : "bg-gray-300 text-gray-800"
                           }`}>
-                            {consultation.status === "completed" ? "✓ Completed" : "⏳ In Progress"}
+                            {consultation.status === "completed" ? `✓ ${t('dashboard.stats.completed')}` : `⏳ ${t('dashboard.stats.inProgress')}`}
                           </span>
                         </div>
                         <p className="text-sm text-gray-600 flex items-center">
@@ -374,7 +375,7 @@ export default function DashboardPage() {
                     </div>
                     
                     <button className="flex items-center space-x-2 px-4 py-2 bg-blue-100 text-blue-700 font-semibold rounded-xl group-hover:bg-blue-200 transition-all">
-                      <span>View Details</span>
+                      <span>{t('dashboard.viewDetails')}</span>
                       <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
@@ -392,7 +393,7 @@ export default function DashboardPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold text-gray-900">Select Language</h3>
+              <h3 className="text-2xl font-bold text-gray-900">{t('languages.selectLanguage')}</h3>
               <button
                 onClick={() => setShowLanguageModal(false)}
                 className="text-gray-500 hover:text-gray-700"
@@ -434,4 +435,13 @@ export default function DashboardPage() {
       )}
     </div>
   );
+}
+
+// Add getStaticProps for server-side translations
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 }

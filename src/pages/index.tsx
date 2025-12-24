@@ -1,7 +1,10 @@
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import axios from "axios";
 import Cookies from "js-cookie";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 // const API_BASE_URL = "http://localhost:8000";
 const API_BASE_URL = "https://translation-api-backend.onrender.com"
@@ -13,6 +16,7 @@ type LoginFormData = {
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useTranslation('common');
 
   const [formData, setFormData] = useState<LoginFormData>({
     username: "doctor@clinic.com",
@@ -46,7 +50,7 @@ export default function LoginPage() {
 
       router.push("/dashboard");
     } catch (err: any) {
-      setError(err?.response?.data?.detail || "Login failed. Please try again.");
+      setError(err?.response?.data?.detail || t('auth.loginFailed'));
     } finally {
       setLoading(false);
     }
@@ -69,6 +73,11 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 relative overflow-hidden">
+      {/* Language Switcher - Top Right Corner */}
+      <div className="absolute top-4 right-4 z-50">
+        <LanguageSwitcher />
+      </div>
+
       {/* Animated Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-48 sm:w-72 h-48 sm:h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
@@ -85,17 +94,17 @@ export default function LoginPage() {
             </svg>
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 sm:mb-3">
-            Medical Transcription
+            {t('app.title')}
           </h1>
-          <p className="text-blue-200 text-base sm:text-lg font-medium">Doctor Portal Login</p>
+          <p className="text-blue-200 text-base sm:text-lg font-medium">{t('app.subtitle')}</p>
         </div>
 
         {/* Main Login Card */}
         <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 backdrop-blur-lg border border-gray-200">
           {/* Welcome Message */}
           <div className="mb-6 sm:mb-8">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Welcome Back</h2>
-            <p className="text-gray-600 text-sm sm:text-base">Sign in to access your consultation dashboard</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">{t('auth.welcomeBack')}</h2>
+            <p className="text-gray-600 text-sm sm:text-base">{t('auth.signInDescription')}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
@@ -107,7 +116,7 @@ export default function LoginPage() {
                   focusedField === 'username' ? 'text-blue-600' : 'text-gray-700'
                 }`}
               >
-                Email Address
+                {t('auth.emailAddress')}
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
@@ -145,7 +154,7 @@ export default function LoginPage() {
                   focusedField === 'password' ? 'text-blue-600' : 'text-gray-700'
                 }`}
               >
-                Password
+                {t('auth.password')}
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
@@ -160,7 +169,7 @@ export default function LoginPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
-                <input
+                {/* <input
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
@@ -169,9 +178,21 @@ export default function LoginPage() {
                   onFocus={() => setFocusedField('password')}
                   onBlur={() => setFocusedField('')}
                   className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-3.5 text-sm sm:text-base border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 outline-none text-gray-800"
-                  placeholder="Enter your password"
+                  placeholder={t('auth.password')}
                   required
-                />
+                /> */}
+                <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('password')}
+                    onBlur={() => setFocusedField('')}
+                    className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-3.5 text-sm sm:text-base border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 outline-none text-gray-800"
+                    placeholder={t('auth.password') as string}
+                    required
+                  />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -198,7 +219,7 @@ export default function LoginPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-sm">Login Failed</h3>
+                  <h3 className="font-semibold text-gray-900 text-sm">{t('auth.loginFailed')}</h3>
                   <p className="text-gray-700 text-sm mt-1">{error}</p>
                 </div>
               </div>
@@ -216,14 +237,14 @@ export default function LoginPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  <span>Logging in...</span>
+                  <span>{t('auth.loggingIn')}</span>
                 </>
               ) : (
                 <>
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                   </svg>
-                  <span>Sign In</span>
+                  <span>{t('auth.signIn')}</span>
                 </>
               )}
             </button>
@@ -235,7 +256,7 @@ export default function LoginPage() {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-600 font-medium">Demo Access</span>
+              <span className="px-4 bg-white text-gray-600 font-medium">{t('auth.demoAccess')}</span>
             </div>
           </div>
 
@@ -247,14 +268,14 @@ export default function LoginPage() {
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Demo Credentials</h3>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">{t('auth.demoCredentials')}</h3>
                 <div className="space-y-2 text-xs sm:text-sm">
                   <div className="flex items-center justify-between bg-white rounded-lg px-2 sm:px-3 py-2 gap-2">
-                    <span className="text-gray-700 flex-shrink-0">Email:</span>
+                    <span className="text-gray-700 flex-shrink-0">{t('auth.emailAddress')}:</span>
                     <code className="text-blue-700 font-mono font-medium truncate">doctor@clinic.com</code>
                   </div>
                   <div className="flex items-center justify-between bg-white rounded-lg px-2 sm:px-3 py-2 gap-2">
-                    <span className="text-gray-700 flex-shrink-0">Password:</span>
+                    <span className="text-gray-700 flex-shrink-0">{t('auth.password')}:</span>
                     <code className="text-blue-700 font-mono font-medium">password123</code>
                   </div>
                 </div>
@@ -266,7 +287,7 @@ export default function LoginPage() {
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  <span>Use Demo Credentials</span>
+                  <span>{t('auth.useDemoCredentials')}</span>
                 </button>
               </div>
             </div>
@@ -276,13 +297,13 @@ export default function LoginPage() {
         {/* Footer */}
         <div className="mt-6 sm:mt-8 text-center">
           <p className="text-blue-100 text-sm">
-            Secure medical transcription platform
+            {t('auth.securePlatform')}
           </p>
           <div className="flex items-center justify-center gap-2 mt-3 text-xs sm:text-sm text-blue-200">
             <svg className="w-4 h-4 text-blue-300" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
             </svg>
-            <span>256-bit SSL Encrypted</span>
+            <span>{t('auth.secureEncrypted')}</span>
           </div>
         </div>
       </div>
@@ -330,4 +351,13 @@ export default function LoginPage() {
       `}</style>
     </div>
   );
+}
+
+// Add getStaticProps for server-side translations
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 }

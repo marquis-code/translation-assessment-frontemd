@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Cookies from "js-cookie";
 
 const API_BASE_URL = "https://translation-api-backend.onrender.com"
@@ -9,6 +11,7 @@ const WS_BASE_URL = "wss://translation-api-backend.onrender.com"
 
 export default function TranscriptionPage() {
   const router = useRouter();
+  const { t } = useTranslation('common');
   const { id: consultationId } = router.query;
 
   const [isRecording, setIsRecording] = useState(false) as any
@@ -30,10 +33,10 @@ export default function TranscriptionPage() {
   const animationFrameRef = useRef(null) as any
 
   const languages = [
-    { code: "en", name: "English", flag: "🇬🇧" },
-    { code: "hi", name: "हिंदी (Hindi)", flag: "🇮🇳" },
-    { code: "ta", name: "தமிழ் (Tamil)", flag: "🇮🇳" },
-    { code: "id", name: "Bahasa Indonesia", flag: "🇮🇩" },
+    { code: "en", name: t('languages.en'), flag: "🇬🇧" },
+    { code: "hi", name: t('languages.hi'), flag: "🇮🇳" },
+    { code: "ta", name: t('languages.ta'), flag: "🇮🇳" },
+    { code: "id", name: t('languages.id'), flag: "🇮🇩" },
   ];
 
   useEffect(() => {
@@ -183,7 +186,7 @@ export default function TranscriptionPage() {
 
       ws.onerror = (error) => {
         console.error("❌ WebSocket error:", error);
-        setError("Connection error. Please try again.");
+        setError(t('transcription.connectionError'));
         setConnectionStatus("error");
       };
 
@@ -212,7 +215,7 @@ export default function TranscriptionPage() {
 
     } catch (err) {
       console.error("❌ Microphone error:", err);
-      setError("Failed to access microphone. Please check permissions.");
+      setError(t('transcription.connectionError'));
       setConnectionStatus("error");
     }
   };
@@ -245,7 +248,7 @@ export default function TranscriptionPage() {
 
   const handleGenerateSummary = async () => {
     if (transcript.length === 0) {
-      setError("No transcript available to generate summary");
+      setError(t('transcription.noTranscript'));
       return;
     }
 
@@ -272,7 +275,7 @@ export default function TranscriptionPage() {
       router.push(`/summary/${consultationId}`);
     } catch (err) {
       console.error("Error generating summary:", err);
-      setError("Failed to generate summary. Please try again.");
+      setError(t('transcription.generating'));
     } finally {
       setIsGenerating(false);
     }
@@ -290,7 +293,7 @@ export default function TranscriptionPage() {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex items-center justify-center">
         <div className="text-center">
           <div className="w-20 h-20 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-800 text-lg font-medium">Loading...</p>
+          <p className="text-gray-800 text-lg font-medium">{t('common.loading')}</p>
         </div>
       </div>
     );
@@ -317,10 +320,10 @@ export default function TranscriptionPage() {
                 </div>
                 <div>
                   <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-                    Live Consultation
+                    {t('transcription.liveConsultation')}
                   </h1>
                   <p className="text-sm text-gray-600">
-                    Session ID: <span className="font-mono text-gray-800">{shortId}</span>
+                    {t('transcription.sessionId')}: <span className="font-mono text-gray-800">{shortId}</span>
                   </p>
                 </div>
               </div>
@@ -328,18 +331,18 @@ export default function TranscriptionPage() {
 
             <div className="flex gap-3">
               <div className="bg-blue-100 rounded-xl px-4 py-3 border border-blue-200">
-                <div className="text-xs text-blue-700 font-semibold mb-1">LANGUAGE</div>
+                <div className="text-xs text-blue-700 font-semibold mb-1">{t('transcription.language')}</div>
                 <div className="text-lg font-bold text-blue-800 flex items-center gap-2">
                   <span className="text-2xl">{currentLanguage?.flag}</span>
                   <span>{currentLanguage?.code.toUpperCase()}</span>
                 </div>
               </div>
               <div className="bg-blue-100 rounded-xl px-4 py-3 border border-blue-200">
-                <div className="text-xs text-blue-700 font-semibold mb-1">EXCHANGES</div>
+                <div className="text-xs text-blue-700 font-semibold mb-1">{t('transcription.exchanges')}</div>
                 <div className="text-2xl font-bold text-blue-800">{transcriptCount}</div>
               </div>
               <div className="bg-blue-200 rounded-xl px-4 py-3 border border-blue-300">
-                <div className="text-xs text-blue-800 font-semibold mb-1">WORDS</div>
+                <div className="text-xs text-blue-800 font-semibold mb-1">{t('transcription.words')}</div>
                 <div className="text-2xl font-bold text-blue-900">{wordCount}</div>
               </div>
             </div>
@@ -364,7 +367,7 @@ export default function TranscriptionPage() {
                         <path fillRule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-lg">Start Recording</span>
+                    <span className="text-lg">{t('transcription.startRecording')}</span>
                   </button>
                 ) : (
                   <button 
@@ -376,7 +379,7 @@ export default function TranscriptionPage() {
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-lg">Stop Recording</span>
+                    <span className="text-lg">{t('transcription.stopRecording')}</span>
                   </button>
                 )}
 
@@ -387,7 +390,7 @@ export default function TranscriptionPage() {
                       <span className="relative inline-flex rounded-full h-4 w-4 bg-blue-600"></span>
                     </div>
                     <div>
-                      <div className="text-blue-800 font-bold text-sm">RECORDING</div>
+                      <div className="text-blue-800 font-bold text-sm">{t('transcription.recording')}</div>
                       <div className="text-blue-700 text-xs font-mono">{formatDuration(recordingDuration)}</div>
                     </div>
                   </div>
@@ -414,10 +417,10 @@ export default function TranscriptionPage() {
                 connectionStatus === 'error' ? 'bg-gray-200 text-gray-800' :
                 'bg-gray-100 text-gray-600'
               }`}>
-                {connectionStatus === 'connected' ? '● Connected' :
-                 connectionStatus === 'connecting' ? '○ Connecting...' :
-                 connectionStatus === 'error' ? '✕ Connection Error' :
-                 '○ Disconnected'}
+                {connectionStatus === 'connected' ? `● ${t('transcription.connected')}` :
+                 connectionStatus === 'connecting' ? `○ ${t('transcription.connecting')}` :
+                 connectionStatus === 'error' ? `✕ ${t('transcription.connectionError')}` :
+                 `○ ${t('transcription.disconnected')}`}
               </div>
             </div>
           </div>
@@ -428,7 +431,7 @@ export default function TranscriptionPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <div>
-                <h3 className="font-semibold text-gray-900">Error</h3>
+                <h3 className="font-semibold text-gray-900">{t('common.error')}</h3>
                 <p className="text-gray-800 text-sm">{error}</p>
               </div>
             </div>
@@ -441,11 +444,11 @@ export default function TranscriptionPage() {
                 <svg className="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                Live Transcript {selectedLanguage !== "en" && `(${currentLanguage?.name})`}
+                {t('transcription.liveTranscript')} {selectedLanguage !== "en" && `(${currentLanguage?.name})`}
               </h2>
               {transcript.length > 0 && (
                 <span className="text-sm text-gray-600 bg-gray-200 px-3 py-1 rounded-full">
-                  {transcriptCount} exchanges
+                  {transcriptCount} {t('transcription.exchanges').toLowerCase()}
                 </span>
               )}
             </div>
@@ -459,8 +462,8 @@ export default function TranscriptionPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">Ready to Start</h3>
-                  <p className="text-gray-600 max-w-md">Click "Start Recording" to begin capturing your consultation. Speech will be transcribed and translated to {currentLanguage?.name} in real-time.</p>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{t('transcription.readyToStart')}</h3>
+                  <p className="text-gray-600 max-w-md">{t('transcription.clickToBegin')}</p>
                 </div>
               )}
 
@@ -485,16 +488,16 @@ export default function TranscriptionPage() {
                       <span className={`font-bold text-sm uppercase tracking-wide ${
                         item.speaker === "Doctor" ? "text-blue-800" : "text-gray-800"
                       }`}>
-                        {item.speaker}
+                        {item.speaker === "Doctor" ? t('transcription.doctor') : t('transcription.patient')}
                       </span>
                       {item.language !== "en" && (
                         <span className="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full font-semibold">
-                          {languages.find(l => l.code === item.language)?.flag} Translated
+                          {languages.find(l => l.code === item.language)?.flag} {t('transcription.translated')}
                         </span>
                       )}
                     </div>
                     <span className="text-xs text-gray-600 bg-white px-2 py-1 rounded-full">
-                      {new Date(item.timestamp).toLocaleTimeString()}
+                      {new Date(item.timestamp).toLocaleTimeString(router.locale)}
                     </span>
                   </div>
                   <p className="text-gray-900 leading-relaxed pl-10">{item.text}</p>
@@ -511,7 +514,7 @@ export default function TranscriptionPage() {
               <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span>Real-time transcription with speaker detection</span>
+              <span>{t('transcription.realTimeTranscription')}</span>
             </div>
             
             <div className="flex gap-3">
@@ -519,7 +522,7 @@ export default function TranscriptionPage() {
                 onClick={handleCancel}
                 className="px-6 py-3 bg-white border-2 border-gray-300 text-gray-800 font-semibold rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all"
               >
-                Cancel
+                {t('transcription.cancel')}
               </button>
               <button
                 onClick={handleGenerateSummary}
@@ -532,14 +535,14 @@ export default function TranscriptionPage() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    <span>Generating...</span>
+                    <span>{t('transcription.generating')}</span>
                   </>
                 ) : (
                   <>
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    <span>Generate Summary</span>
+                    <span>{t('transcription.generateSummary')}</span>
                   </>
                 )}
               </button>
@@ -549,4 +552,13 @@ export default function TranscriptionPage() {
       </div>
     </div>
   );
+}
+
+// Add getServerSideProps for server-side translations (dynamic route)
+export async function getServerSideProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 }

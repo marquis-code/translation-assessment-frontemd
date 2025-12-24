@@ -1,0 +1,128 @@
+{
+  "app": {
+    "title": "MediScribe AI",
+    "subtitle": "Platform Transkripsi Medis"
+  },
+  "auth": {
+    "welcomeBack": "Selamat Datang Kembali",
+    "signIn": "Masuk",
+    "signInDescription": "Masuk untuk mengakses dasbor konsultasi Anda",
+    "emailAddress": "Alamat Email",
+    "password": "Kata Sandi",
+    "loggingIn": "Masuk...",
+    "loginFailed": "Login Gagal",
+    "demoAccess": "Akses Demo",
+    "demoCredentials": "Kredensial Demo",
+    "useDemoCredentials": "Gunakan Kredensial Demo",
+    "secureEncrypted": "Terenkripsi SSL 256-bit",
+    "securePlatform": "Platform transkripsi medis yang aman"
+  },
+  "dashboard": {
+    "greeting": {
+      "morning": "Selamat Pagi",
+      "afternoon": "Selamat Siang",
+      "evening": "Selamat Malam"
+    },
+    "ready": "Siap mendokumentasikan konsultasi pasien Anda berikutnya?",
+    "logout": "Keluar",
+    "stats": {
+      "total": "Total Konsultasi",
+      "completed": "Selesai",
+      "inProgress": "Sedang Berlangsung",
+      "today": "Hari Ini"
+    },
+    "newConsultation": {
+      "title": "Mulai Konsultasi Baru",
+      "description": "Rekam interaksi pasien dengan transkripsi waktu nyata, deteksi pembicara otomatis, dan ringkasan klinis bertenaga AI",
+      "beginRecording": "Mulai Merekam",
+      "starting": "Memulai..."
+    },
+    "recentConsultations": "Konsultasi Terbaru",
+    "noConsultations": "Belum ada konsultasi",
+    "startFirst": "Mulai konsultasi pertama Anda untuk melihatnya muncul di sini",
+    "viewDetails": "Lihat Detail"
+  },
+  "transcription": {
+    "liveConsultation": "Konsultasi Langsung",
+    "sessionId": "ID Sesi",
+    "language": "BAHASA",
+    "exchanges": "PERTUKARAN",
+    "words": "KATA",
+    "startRecording": "Mulai Merekam",
+    "stopRecording": "Hentikan Rekaman",
+    "recording": "MEREKAM",
+    "connected": "Terhubung",
+    "connecting": "Menghubungkan...",
+    "connectionError": "Kesalahan Koneksi",
+    "disconnected": "Terputus",
+    "liveTranscript": "Transkrip Langsung",
+    "readyToStart": "Siap Memulai",
+    "clickToBegin": "Klik \"Mulai Merekam\" untuk mulai merekam konsultasi Anda. Ucapan akan ditranskripsi dan diterjemahkan secara waktu nyata.",
+    "translated": "Diterjemahkan",
+    "realTimeTranscription": "Transkripsi waktu nyata dengan deteksi pembicara",
+    "cancel": "Batal",
+    "generateSummary": "Buat Ringkasan",
+    "generating": "Membuat...",
+    "doctor": "Dokter",
+    "patient": "Pasien"
+  },
+  "summary": {
+    "clinicalSummary": "Ringkasan Klinis",
+    "back": "Kembali",
+    "transcript": "Transkrip",
+    "export": "Ekspor",
+    "save": "Simpan",
+    "saving": "Menyimpan...",
+    "edit": "Edit",
+    "completed": "Konsultasi Selesai",
+    "completedOn": "Selesai pada",
+    "sections": {
+      "identifiers": "Identitas Pasien",
+      "history": "Riwayat Medis",
+      "examination": "Pemeriksaan Klinis",
+      "diagnoses": "Diagnosis & Penilaian",
+      "treatment": "Rencana Perawatan",
+      "advice": "Konseling Pasien",
+      "nextSteps": "Tindak Lanjut & Langkah Selanjutnya"
+    },
+    "placeholders": {
+      "identifiers": "Masukkan nama pasien, usia, jenis kelamin, dan lokasi",
+      "history": "Keluhan utama, riwayat penyakit saat ini, riwayat medis sebelumnya",
+      "examination": "Temuan pemeriksaan fisik dan tanda vital",
+      "diagnoses": "Penilaian klinis dan diagnosis",
+      "treatment": "Obat-obatan, prosedur, dan rencana perawatan",
+      "advice": "Perubahan gaya hidup, saran diet, edukasi pasien",
+      "nextSteps": "Janji tindak lanjut dan investigasi"
+    },
+    "markCompleted": "Tandai Sebagai Selesai",
+    "saveBeforeComplete": "Simpan ringkasan sebelum menandai sebagai selesai",
+    "consultationInfo": "Info Konsultasi",
+    "status": "Status",
+    "created": "Dibuat",
+    "quickActions": "Tindakan Cepat",
+    "printSummary": "Cetak Ringkasan",
+    "backToDashboard": "Kembali ke Dasbor",
+    "tips": "Tips",
+    "tip1": "Gunakan terminologi medis yang jelas dan ringkas",
+    "tip2": "Simpan sesering mungkin untuk menghindari kehilangan perubahan",
+    "tip3": "Tinjau sebelum menandai sebagai selesai",
+    "consultationTranscript": "Transkrip Konsultasi",
+    "noTranscript": "Tidak ada transkrip tersedia",
+    "savedSuccessfully": "Ringkasan berhasil disimpan!",
+    "completedSuccessfully": "Konsultasi selesai!"
+  },
+"languages": {
+    "en": "English",
+    "hi": "हिंदी (Hindi)",
+    "ta": "தமிழ் (Tamil)",
+    "id": "Bahasa Indonesia",
+    "selectLanguage": "Pilih Bahasa"
+  },
+  "common": {
+    "error": "Kesalahan",
+    "success": "Berhasil",
+    "loading": "Memuat...",
+    "loadingWorkspace": "Memuat ruang kerja Anda...",
+    "id": "ID"
+  }
+}
